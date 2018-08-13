@@ -1,4 +1,4 @@
-## ssmartwx-boot版
+## smartwx-boot版
 ---------------------------------
 [![QQ](https://img.shields.io/badge/chat-on%20QQ-ff69b4.svg?style=flat-square)](https://jq.qq.com/?_wv=1027&k=5bGtRX8)
 [![GPL-3.0](https://img.shields.io/cran/l/devtools.svg)](https://gitee.com/qingfengtaizi/wxmp/blob/master/LICENSE)
