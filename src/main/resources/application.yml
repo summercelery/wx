@@ -1,0 +1,33 @@
+# Tomcat
+server:
+    tomcat:
+        max-threads: 10
+        min-spare-threads: 10
+    port: 80
+
+# mysql
+spring:
+    datasource:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driverClassName: com.mysql.jdbc.Driver
+        url: jdbc:mysql://47.93.252.153:3306/wxmp2?useUnicode=true&characterEncoding=utf-8&useSSL=false
+        username: wxmpuser
+        password: R7TMDSi$JXr7T3s$u#T@
+    jackson:
+        time-zone: GMT+8
+        date-format: yyyy-MM-dd HH:mm:ss
+    resources:
+            static-locations: classpath:/static/,classpath:/views/
+    cache:
+        ehcache:
+          config: classpath:property/ehcache.xml
+
+# Mybatis配置
+mybatis:
+    mapperLocations: classpath:mapper/*.xml
+
+http:
+    #上传文件大小设置
+    multipart:
+        maxFileSize: 10Mb
+        maxRequestSize: 50Mb
