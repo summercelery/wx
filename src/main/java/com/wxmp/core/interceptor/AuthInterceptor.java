@@ -61,7 +61,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 				response.setHeader("sessionState", "notLogin");
 			} else {
 				// 跳转到登录页
-				response.sendRedirect("/login.html");
+				response.sendRedirect("/views/login.html");
 			}
 			return false;
 		}

@@ -45,7 +45,7 @@ public class WebMvcConfg implements WebMvcConfigurer {
     //配置首页启动
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("forward:/login.html");
+        registry.addViewController("/").setViewName("forward:/views/login.html");
         registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
     }
 }
