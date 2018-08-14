@@ -12,7 +12,7 @@
 
 数据库：MYSQL
 
-JAVA开发框架：Spring MVC+Spring+Mybatis
+JAVA开发框架：SpringBoot+Mybatis
 
 缓存框架：j2cache
 
