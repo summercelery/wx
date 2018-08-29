@@ -25,9 +25,9 @@ import com.wxmp.wxcms.domain.Account;
 import com.wxmp.wxcms.domain.SysConfig;
 import com.wxmp.wxcms.service.AccountService;
 import com.wxmp.wxcms.service.SysConfigService;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
 
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
 import java.util.List;
 
 /**
@@ -36,12 +36,11 @@ import java.util.List;
  * @version 2.0
  * @date 2018-04-17 10:54:58
  */
-public class InitListener implements ServletContextListener {
+@Component
+public class InitListener implements CommandLineRunner {
     
-    public InitListener() {
-    }
-    
-    public void contextInitialized(ServletContextEvent sce) {
+    @Override
+    public void run(String... args) throws Exception {
         try {
             //放入公众号
             AccountService accountService = SpringContextHolder.getBean("accountService");
@@ -56,10 +55,5 @@ public class InitListener implements ServletContextListener {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
-    }
-    
-    public void contextDestroyed(ServletContextEvent sce) {
-        
     }
 }
