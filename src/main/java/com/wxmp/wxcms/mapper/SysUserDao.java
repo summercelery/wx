@@ -47,4 +47,12 @@ public interface SysUserDao {
      * @param sysUser
      */
     public void updateLoginPwd(SysUser sysUser);
+
+	/**
+	 * 根据账户名查找用户
+	 * @return
+	 */
+	public SysUser getSysUserByAccount(String account);
+
+	public void createSysUser(SysUser sysUser);
 }

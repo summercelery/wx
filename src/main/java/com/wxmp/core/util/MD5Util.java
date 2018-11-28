@@ -21,9 +21,17 @@ package com.wxmp.core.util;
 
 
 
+import org.apache.shiro.crypto.hash.Md5Hash;
+
 import java.security.MessageDigest;
 
 public class MD5Util {
+
+	//用户md5加密
+	public static String getShiroMD5(String str,String salt){
+		//加盐md5加密 散列2次
+		return new Md5Hash(str,salt,2).toString();
+	}
 
 	private static String byteArrayToHexString(byte b[]) {
 		StringBuffer resultSb = new StringBuffer();

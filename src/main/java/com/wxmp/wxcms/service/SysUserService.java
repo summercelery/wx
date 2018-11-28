@@ -1,37 +1,36 @@
-/*
- * FileName：SysUserService.java 
- * <p>
- * Copyright (c) 2017-2020, <a href="http://www.webcsn.com">hermit (794890569@qq.com)</a>.
- * <p>
- * Licensed under the GNU General Public License, Version 3 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * <p>
- * http://www.gnu.org/licenses/gpl-3.0.html
- * <p>
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- * 
- */
 package com.wxmp.wxcms.service;
 
 import com.wxmp.wxcms.domain.SysUser;
+import com.wxmp.wxcms.mapper.SysUserDao;
+import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 
-/**
- *
- * @author hermit
- * @version 2.0
- * @date 2018-04-17 10:54:58
- */
-public interface SysUserService {
+@Service
+public class SysUserService {
 
-	public SysUser getSysUser(SysUser sysUser);
+	@Resource
+	private SysUserDao sysUserDao;
 	
-	public SysUser getSysUserById(String userId);
-	
-	public int updateLoginPwd(SysUser sysUser);
+	public SysUser getSysUser(SysUser sysUser) {
+		return this.sysUserDao.getSysUser(sysUser);
+
+	}
+
+	public SysUser getSysUserByAccount(String account) {
+		return this.sysUserDao.getSysUserByAccount(account);
+
+	}
+
+	public SysUser getSysUserById(String userId) {
+		return this.sysUserDao.getSysUserById(userId);
+	}
+
+	public void updateLoginPwd(SysUser sysUser) {
+		sysUserDao.updateLoginPwd(sysUser);
+	}
+
+	public void createUser(SysUser sysUser){
+		sysUserDao.createSysUser(sysUser);
+	}
 }

@@ -7,12 +7,15 @@ server:
 
 # mysql
 spring:
+    profiles:
+        active: redis
+
     datasource:
         type: com.alibaba.druid.pool.DruidDataSource
         driverClassName: com.mysql.jdbc.Driver
         url: jdbc:mysql://localhost:3306/wxmp?useUnicode=true&characterEncoding=utf-8&useSSL=false
         username: root
-        password: root
+        password: 123456
     jackson:
         time-zone: GMT+8
         date-format: yyyy-MM-dd HH:mm:ss
@@ -36,6 +39,7 @@ http:
 # Spring boot的默认log配置很好用，默认10MB一个文件，回定期归档log文件为gz
 logging:
   file: logs/app.log
+
   level:
     root: INFO
-    com.wd: DEBUG
+    com.wxmp.wxcms.mapper: DEBUG

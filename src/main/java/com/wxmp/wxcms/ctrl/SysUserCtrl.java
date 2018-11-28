@@ -1,92 +1,90 @@
-/*
- * FileName：SysUserCtrl.java 
- * <p>
- * Copyright (c) 2017-2020, <a href="http://www.webcsn.com">hermit (794890569@qq.com)</a>.
- * <p>
- * Licensed under the GNU General Public License, Version 3 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * <p>
- * http://www.gnu.org/licenses/gpl-3.0.html
- * <p>
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- * 
- */
 package com.wxmp.wxcms.ctrl;
-
 import com.wxmp.core.common.BaseCtrl;
 import com.wxmp.core.util.AjaxResult;
 import com.wxmp.core.util.MD5Util;
-import com.wxmp.core.util.SessionUtil;
+import com.wxmp.core.util.UUIDUtil;
 import com.wxmp.wxapi.process.WxMemoryCacheClient;
 import com.wxmp.wxcms.domain.Account;
 import com.wxmp.wxcms.domain.SysUser;
 import com.wxmp.wxcms.service.AccountService;
 import com.wxmp.wxcms.service.SysUserService;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-
+import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
+import java.util.UUID;
 
-/**
- *
- * @author hermit
- * @version 2.0
- * @date 2018-04-17 10:54:58
- */
-@Controller
+@RestController
 @RequestMapping("user")
+@Slf4j
 public class SysUserCtrl extends BaseCtrl {
 
 	@Autowired
 	private SysUserService sysUserService;
 	@Autowired
 	private AccountService accountService;
-	@ResponseBody
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public AjaxResult login(SysUser user) {
-		user.setPwd(MD5Util.getMD5Code(user.getPwd()));
-		SysUser sysUser = this.sysUserService.getSysUser(user);
-		if (sysUser == null) {
-			return AjaxResult.failure("用户名或者密码错误");
-		}
-		SessionUtil.setUser(sysUser);
+
+
+	@PostMapping(value = "/login")
+	public AjaxResult login(SysUser user, Boolean rememberMe) {
+
+		log.debug(user.getAccount() + "正在登陆........");
+		UsernamePasswordToken token = new UsernamePasswordToken(user.getAccount(), user.getPwd(), rememberMe);
+		Subject currentSubject = SecurityUtils.getSubject();
 		//设置登陆者默认公众号
 		Account account = accountService.getSingleAccount();
 		if (account != null) {
 			WxMemoryCacheClient.setAccount(account.getAccount());
 		}
+		try {
+			currentSubject.login(token);
+		} catch (UnknownAccountException | IncorrectCredentialsException e) {
+			return AjaxResult.failure("用户名或密码错误");
+		}
+		log.debug(user.getAccount() + "登陆成功........");
+		SysUser sysUser = (SysUser) currentSubject.getPrincipal();
 		return AjaxResult.success(sysUser.getTrueName());
 	}
 
-	@ResponseBody
-	@RequestMapping(value = "/updatepwd", method = RequestMethod.POST)
+	@PostMapping(value = "/updatepwd")
 	public AjaxResult updatepwd(SysUser user) {
-		if (!SessionUtil.getUser().getPwd().equals(MD5Util.getMD5Code(user.getPwd()))) {
+		if (!((SysUser)SecurityUtils.getSubject().getPrincipal()).getPwd().equals(MD5Util.getShiroMD5(user.getPwd(),user.getId()))) {
 			return AjaxResult.failure("用户名或密码错误");
 		}
-		user.setNewpwd(MD5Util.getMD5Code(user.getNewpwd()));
+		user.setNewpwd(MD5Util.getShiroMD5(user.getNewpwd(),user.getId() ));
 		this.sysUserService.updateLoginPwd(user);
 		//注销用户
-		request.getSession().invalidate();
+		SecurityUtils.getSubject().logout();
 		return AjaxResult.success();
 	}
 
 	/**
-	 * ： 用户退出
+	 * 用户退出
 	 * @return
 	 */
-	@ResponseBody
 	@RequestMapping("logout")
 	public AjaxResult logout(HttpServletRequest request) {
-		request.getSession().invalidate();
+		SecurityUtils.getSubject().logout();
 		return AjaxResult.success();
 	}
+
+	@PostMapping(value = "/register")
+	public AjaxResult register(SysUser user) {
+		SysUser user1 = new SysUser();
+		user1.setAccount(user.getAccount());
+		user.setId(UUIDUtil.getUUID());
+		user1.setId(user.getId());
+
+		String a = MD5Util.getShiroMD5(user.getPwd(),user.getId());
+		user1.setPwd(a);
+		sysUserService.createUser(user1);
+
+		return AjaxResult.success();
+	}
+
 }

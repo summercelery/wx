@@ -1,5 +1,5 @@
 /*
- * FileName：MsgBaseService.java 
+ * FileName：MsgBaseServiceImpl.java 
  * <p>
  * Copyright (c) 2017-2020, <a href="http://www.webcsn.com">hermit (794890569@qq.com)</a>.
  * <p>
@@ -19,7 +19,10 @@
 package com.wxmp.wxcms.service;
 
 import com.wxmp.wxcms.domain.MsgBase;
+import com.wxmp.wxcms.mapper.MsgBaseDao;
+import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -28,17 +31,31 @@ import java.util.List;
  * @version 2.0
  * @date 2018-04-17 10:54:58
  */
-public interface MsgBaseService {
+@Service
+public class MsgBaseService {
 
-	public MsgBase getById(String id);
+	@Resource
+	private MsgBaseDao entityDao;
 
-	public List<MsgBase> listForPage(MsgBase searchEntity);
+	public MsgBase getById(String id){
+		return entityDao.getById(id);
+	}
 
-	public void add(MsgBase entity);
+	public List<MsgBase> listForPage(MsgBase searchEntity){
+		return entityDao.listForPage(searchEntity);
+	}
 
-	public void update(MsgBase entity);
+	public void add(MsgBase entity){
+		entityDao.add(entity);
+	}
 
-	public void delete(MsgBase entity);
+	public void update(MsgBase entity){
+		entityDao.update(entity);
+	}
+
+	public void delete(MsgBase entity){
+		entityDao.delete(entity);
+	}
 
 
 

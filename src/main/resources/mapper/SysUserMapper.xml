@@ -25,4 +25,15 @@
 		    update_time = #{updateTime} 
 		WHERE id = #{id} 
 	</update>
+
+	<!--根据账户查询用户-->
+	<select id="getSysUserByAccount" parameterType="java.lang.String" resultType="com.wxmp.wxcms.domain.SysUser">
+		SELECT * FROM sys_user
+		WHERE account = #{account}
+	</select>
+
+	<insert id="createSysUser" parameterType="com.wxmp.wxcms.domain.SysUser">
+		INSERT INTO sys_user (id,account,pwd) VALUES id= #{id},#{account},#{pwd})
+	</insert>
+
 </mapper>
