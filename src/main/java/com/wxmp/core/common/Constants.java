@@ -35,6 +35,7 @@ public class Constants {
 	public static final String SYSTEM_NAME = "SmartWx";
 	public static final String SYSTEM_VERSION = "2.1.0";
 	public static final String SYSTEM_UPDATE_TIME = "2018-07-06";
+	public static final String DOMAIN_NAMW = "www.baidu.com";
 
 	/**
 	 * Token加密密钥

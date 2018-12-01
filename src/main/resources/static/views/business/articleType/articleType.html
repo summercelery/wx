@@ -2,14 +2,14 @@
     <div class="layui-anim layui-anim-upbit">
         <div class="layui-form-item wx-search" id="list_form">
             <div class="layui-inline">
-                <input type="text" name="inputcode" placeholder="请输入文章名" autocomplete="off" class="layui-input">
+                <input type="text" name="inputcode" placeholder="请输入文章类型" autocomplete="off" class="layui-input">
             </div>
             <div class="layui-inline">
                 <button class="layui-btn btn-primary" id="search">搜索</button>
             </div>
 
             <div class="layui-inline right">
-                <button class="layui-btn btn-primary" onclick="jump('/business/article/addArticle')">添加文章</button>
+                <button class="layui-btn btn-primary" id="createArticle">添加类型</button>
             </div>
         </div>
         <table id="list_table" class="layui-hide" lay-filter="mainList"></table>
@@ -30,9 +30,8 @@
             cols: [[ //表头
                 {type: 'checkbox'},
                 {type: 'numbers', title: '序号',width:50},
-                {field: 'articleName', title: '文章名称', width:250, align: 'center'},
-                {field: 'type', title: '文章类型', width: 180, align: 'center'},
-                {field: 'url', title: '视图URL', width: 500, align: 'center'},
+                {field: 'name', title: '类型名称', width: 250, align: 'center'},
+                {field: 'url', title: '视图URL', width: 600, align: 'center'},
                 {field: 'updateTime', title: '修改日期',  width: 180, align: 'center'},
                 {field: 'createTime', title: '创建日期', width: 180, align: 'center'},
                 {
