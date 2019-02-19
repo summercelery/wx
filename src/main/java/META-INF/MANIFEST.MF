@@ -1,0 +1,53 @@
+Manifest-Version: 1.0
+Class-Path: springfox-spring-web-2.5.0.jar log4j-api-2.10.0.jar shiro-
+ config-core-1.4.0.jar dom4j-1.6.1.jar shiro-core-1.4.0.jar netty-reso
+ lver-4.1.25.Final.jar mybatis-3.4.6.jar spring-jdbc-5.0.7.RELEASE.jar
+  spring-boot-starter-tomcat-2.0.3.RELEASE.jar swagger-models-1.5.9.ja
+ r spring-boot-starter-2.0.3.RELEASE.jar shiro-crypto-core-1.4.0.jar c
+ ommons-configuration-1.7.jar tomcat-embed-websocket-8.5.31.jar spring
+ -web-5.0.7.RELEASE.jar netty-codec-4.1.25.Final.jar commons-lang-2.6.
+ jar commons-codec-1.9.jar spring-boot-starter-data-redis-2.0.3.RELEAS
+ E.jar mysql-connector-java-5.1.46.jar commons-io-2.4.jar netty-transp
+ ort-4.1.25.Final.jar commons-pool-1.6.jar mybatis-spring-1.3.2.jar le
+ ttuce-core-5.0.4.RELEASE.jar jconsole.jar commons-lang3-3.5.jar sprin
+ g-boot-autoconfigure-2.0.3.RELEASE.jar spring-expression-5.0.7.RELEAS
+ E.jar hibernate-validator-6.0.10.Final.jar httpclient-4.5.2.jar ehcac
+ he-core-2.6.11.jar spring-data-commons-2.0.8.RELEASE.jar jackson-modu
+ le-parameter-names-2.9.6.jar validation-api-2.0.1.Final.jar xstream-1
+ .4.9.jar commons-dbcp-1.4.jar reactive-streams-1.0.2.jar jackson-anno
+ tations-2.9.0.jar commons-digester-1.8.1.jar spring-boot-2.0.3.RELEAS
+ E.jar jackson-databind-2.9.6.jar shiro-event-1.4.0.jar spring-context
+ -5.0.7.RELEASE.jar netty-buffer-4.1.25.Final.jar springfox-swagger-ui
+ -2.5.0.jar druid-1.0.28.jar shiro-cache-1.4.0.jar spring-boot-starter
+ -jdbc-2.0.3.RELEASE.jar slf4j-api-1.7.25.jar springfox-swagger-common
+ -2.5.0.jar metadata-extractor-2.6.2.jar netty-handler-4.1.25.Final.ja
+ r spring-aop-5.0.7.RELEASE.jar netty-common-4.1.25.Final.jar shiro-sp
+ ring-1.4.0.jar spring-data-keyvalue-2.0.8.RELEASE.jar springfox-core-
+ 2.5.0.jar jdom-1.1.3.jar xpp3_min-1.1.4c.jar springfox-schema-2.5.0.j
+ ar HikariCP-2.7.9.jar shiro-web-1.4.0.jar shiro-crypto-hash-1.4.0.jar
+  spring-plugin-metadata-1.2.0.RELEASE.jar commons-logging-1.1.1.jar t
+ omcat-embed-el-8.5.31.jar logback-classic-1.2.3.jar jackson-core-2.9.
+ 6.jar reactor-core-3.1.8.RELEASE.jar jul-to-slf4j-1.7.25.jar persiste
+ nce-api-1.0.2.jar guava-20.0.jar springfox-swagger2-2.5.0.jar tomcat-
+ embed-core-8.5.31.jar jsoup-1.11.2.jar spring-plugin-core-1.2.0.RELEA
+ SE.jar core-2.2.jar swagger-annotations-1.5.9.jar tools.jar shiro-con
+ fig-ogdl-1.4.0.jar xercesImpl-2.8.1.jar spring-core-5.0.7.RELEASE.jar
+  spring-data-redis-2.0.8.RELEASE.jar classmate-1.3.4.jar mybatis-spri
+ ng-boot-starter-1.3.2.jar spring-boot-starter-logging-2.0.3.RELEASE.j
+ ar commons-pool2-2.4.2.jar jackson-datatype-jdk8-2.9.6.jar javax.serv
+ let-api-3.0.1.jar springfox-spi-2.5.0.jar mybatis-spring-boot-autocon
+ figure-1.3.2.jar spring-test-5.0.7.RELEASE.jar spring-boot-starter-js
+ on-2.0.3.RELEASE.jar xml-apis-1.4.01.jar shiro-lang-1.4.0.jar jboss-l
+ ogging-3.3.2.Final.jar jackson-datatype-jsr310-2.9.6.jar junit-4.11.j
+ ar spring-tx-5.0.7.RELEASE.jar log4j-to-slf4j-2.10.0.jar spring-webmv
+ c-5.0.7.RELEASE.jar hamcrest-core-1.3.jar xmlpull-1.1.3.1.jar fastjso
+ n-1.2.4.jar shiro-crypto-cipher-1.4.0.jar snakeyaml-1.19.jar spring-c
+ ontext-support-5.0.7.RELEASE.jar commons-collections-3.2.1.jar javase
+ -2.2.jar spring-beans-5.0.7.RELEASE.jar httpcore-4.4.6.jar javax.anno
+ tation-api-1.3.2.jar spring-jcl-5.0.7.RELEASE.jar httpmime-4.5.2.jar 
+ mapstruct-1.0.0.Final.jar spring-oxm-5.0.7.RELEASE.jar logback-core-1
+ .2.3.jar commons-beanutils-1.9.1.jar spring-boot-starter-web-2.0.3.RE
+ LEASE.jar lombok-1.16.16.jar commons-fileupload-1.3.1.jar xmpcore-5.1
+ .2.jar
+Main-Class: com.wxmp.SmartwxBootApplication
+

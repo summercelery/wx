@@ -5,7 +5,6 @@ import javax.servlet.http.HttpServletRequestWrapper;
 
 /**
  * XSS攻击处理
- * Created by zchuanzhao on 2017/3/23.
  */
 public class XSSRequestWrapper extends HttpServletRequestWrapper {
 
