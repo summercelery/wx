@@ -73,17 +73,20 @@ public class SysUserCtrl extends BaseCtrl {
 		return AjaxResult.success();
 	}
 
+	/**
+	 * 注册
+	 * @param user
+	 * @return
+	 */
 	@PostMapping(value = "/register")
 	public AjaxResult register(SysUser user) {
 		SysUser user1 = new SysUser();
 		user1.setAccount(user.getAccount());
 		user.setId(UUIDUtil.getUUID());
 		user1.setId(user.getId());
-
 		String a = MD5Util.getShiroMD5(user.getPwd(),user.getId());
 		user1.setPwd(a);
 		sysUserService.createUser(user1);
-
 		return AjaxResult.success();
 	}
 

@@ -32,7 +32,7 @@
 	</select>
 
 	<insert id="createSysUser" parameterType="com.wxmp.wxcms.domain.SysUser">
-		INSERT INTO sys_user (id,account,pwd) VALUES id= #{id},#{account},#{pwd})
+		INSERT INTO sys_user (id,account,pwd) VALUES (#{id},#{account},#{pwd})
 	</insert>
 
 </mapper>
