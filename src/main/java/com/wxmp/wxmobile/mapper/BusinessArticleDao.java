@@ -1,4 +1,4 @@
-package com.wxmp.wxcms.mapper;
+package com.wxmp.wxmobile.mapper;
 
 public interface BusinessArticleDao {
 }

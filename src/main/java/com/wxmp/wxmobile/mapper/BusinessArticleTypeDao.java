@@ -1,6 +1,6 @@
-package com.wxmp.wxcms.mapper;
+package com.wxmp.wxmobile.mapper;
 
-import com.wxmp.wxcms.domain.BusinessArticleType;
+import com.wxmp.wxmobile.domain.BusinessArticleType;
 
 public interface BusinessArticleTypeDao {
 

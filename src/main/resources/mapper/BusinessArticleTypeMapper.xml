@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
-<mapper namespace="com.wxmp.wxcms.mapper.BusinessArticleTypeDao">
+<mapper namespace="com.wxmp.wxmobile.mapper.BusinessArticleTypeDao">
     <insert id="createBusinessArticleType">
         INSERT  INTO wxcms_business_article_type (id,name,create_time,update_time,url)
         VALUES
@@ -13,7 +13,7 @@
         WHERE id = #{id}
     </update>
 
-    <select id="findById" resultType="com.wxmp.wxcms.domain.BusinessArticleType">
+    <select id="findById" resultType="com.wxmp.wxmobile.domain.BusinessArticleType">
         SELECT * FROM  wxcms_business_article_type WHERE id = #{id}
     </select>
 

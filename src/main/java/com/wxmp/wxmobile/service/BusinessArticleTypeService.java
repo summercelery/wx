@@ -1,9 +1,9 @@
-package com.wxmp.wxcms.service;
+package com.wxmp.wxmobile.service;
 
 import com.wxmp.core.common.Constants;
 import com.wxmp.core.util.UUIDUtil;
-import com.wxmp.wxcms.domain.BusinessArticleType;
-import com.wxmp.wxcms.mapper.BusinessArticleTypeDao;
+import com.wxmp.wxmobile.domain.BusinessArticleType;
+import com.wxmp.wxmobile.mapper.BusinessArticleTypeDao;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

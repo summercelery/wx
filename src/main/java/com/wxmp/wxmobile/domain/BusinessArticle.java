@@ -1,4 +1,4 @@
-package com.wxmp.wxcms.domain;
+package com.wxmp.wxmobile.domain;
 
 import lombok.Data;
 
