@@ -78,8 +78,39 @@
 <script src="js/amazeui.min.js"></script>
 <script src="js/app.js"></script>
 <script>
-    jQuery.post(localhost/articleType/getList,data,success(data, textStatus, jqXHR),json)
+    function list(result){
+        $.each(result,function (i,object) {
 
+            alert(object.content);
+            
+        })
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    $(function () {
+        $.ajax({
+            url: '/articleType/getList',
+            data:{typeId:1},
+            success: function (result) {
+                if (result.success) {
+                    list(result.data);
+                }
+            },
+            error: function () {
+                layer.msg("Õ¨≤Ω“Ï≥£");
+            }
+        })
+    })
 
 
 

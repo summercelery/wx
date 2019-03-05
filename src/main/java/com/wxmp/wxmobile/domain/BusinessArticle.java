@@ -10,8 +10,10 @@ public class BusinessArticle {
     private String name;
     private String title;
     private String content;
+    private String shortContent;
     private Date createTime;
     private String url;
+    private String picName;
     private Date updateTime;
     private BusinessArticleType type;
 

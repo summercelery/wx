@@ -18,12 +18,10 @@ public class BusinessArticleTypeService {
 
     public void saveBusinessArticleType(BusinessArticleType type){
 
-        if(StringUtils.isBlank(type.getId())){
-            String id = UUIDUtil.getUUID();
-            type.setId(id);
+        if(null == type.getId()){
             type.setCreateTime(new Date());
             type.setUpdateTime(new Date());
-            type.setUrl(Constants.DOMAIN_NAMW+"/mobileViews/articleList.html?"+id);
+            type.setUrl(Constants.DOMAIN_NAMW+"/mobileViews/articleList.html?"+type.getId());
             businessArticleTypeDao.createBusinessArticleType(type);
         }else {
             type.setUpdateTime(new Date());

@@ -7,7 +7,7 @@ import java.util.Date;
 @Data
 public class BusinessArticleType {
 
-    private String id;
+    private Long id;
     private String name;
     private Date createTime;
     private String url;

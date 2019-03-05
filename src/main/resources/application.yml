@@ -43,3 +43,4 @@ logging:
   level:
     root: INFO
     com.wxmp.wxcms.mapper: DEBUG
+    com.wxmp.wxmobile.mapper: DEBUG
