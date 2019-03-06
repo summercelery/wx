@@ -2,23 +2,31 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="com.wxmp.wxmobile.mapper.BusinessArticleTypeDao">
+
+    <resultMap id="type" type="com.wxmp.wxmobile.domain.BusinessArticleType">
+        <collection property="picUrl" column="id=id" javaType="list" ofType="java.lang.String" select="com.wxmp.wxmobile.mapper.BusinessArticleTypeDao.getTypePics">
+        </collection>
+    </resultMap>
+
+
+
     <insert id="createBusinessArticleType">
-        INSERT  INTO wxcms_business_article_type (id,name,create_time,update_time,url)
+        INSERT  INTO wxmobile_business_article_type (id,name,create_time,update_time,url)
         VALUES
         (#{id},#{name},#{createTime},#{updateTime},#{url})
     </insert>
     <update id="updateBusinessArticleType">
-        UPDATE wxcms_business_article_type
+        UPDATE wxmobile_business_article_type
         SET name = #{name},update_time = #{updateTime}
         WHERE id = #{id}
     </update>
 
-    <select id="findById" resultType="com.wxmp.wxmobile.domain.BusinessArticleType">
-        SELECT * FROM  wxcms_business_article_type WHERE id = #{id}
+    <select id="findById" resultMap="type">
+        SELECT * FROM  wxmobile_business_article_type WHERE id = #{id}
     </select>
-
-
-
+    <select id="getTypePics" resultType="java.lang.String">
+        SELECT url FROM  wxcms_img_resource img LEFT JOIN  wxmobile_type_pic typePic ON  img.id = typePic.pic_id where typePic.type_id = #{id}
+    </select>
 
 
 </mapper>

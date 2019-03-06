@@ -8,37 +8,32 @@ import com.wxmp.wxmobile.service.BusinessArticleTypeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @Slf4j
-@RequestMapping("article")
-public class BusinessArticleCtrl {
+@RequestMapping("articleType")
+public class BusinessArticleTypeCtrl {
 
 
     @Autowired
     private BusinessArticleTypeService businessArticleTypeService;
 
-
-    @Autowired
-    private BusinessArticleService businessArticleService;
-
-
-    @RequestMapping(value = "getList",method = RequestMethod.POST)
-    public AjaxResult list(Long typeId){
-        List<BusinessArticle> list = businessArticleService.getBusinessArticleByType(typeId);
-        return AjaxResult.success(list);
+    @RequestMapping("getType")
+    public AjaxResult getType(Long typeId){
+        BusinessArticleType type = businessArticleTypeService.findById(typeId);
+        return AjaxResult.success(type);
     }
 
 
-    @RequestMapping(value = "save")
+    @RequestMapping("save")
     public AjaxResult save(BusinessArticleType type){
         businessArticleTypeService.saveBusinessArticleType(type);
         return AjaxResult.success();
     }
+
+
 
 }

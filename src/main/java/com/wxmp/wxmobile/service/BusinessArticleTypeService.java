@@ -16,6 +16,10 @@ public class BusinessArticleTypeService {
     @Autowired
     private BusinessArticleTypeDao businessArticleTypeDao;
 
+    public BusinessArticleType findById(Long id){
+        return businessArticleTypeDao.findById(id);
+    }
+
     public void saveBusinessArticleType(BusinessArticleType type){
 
         if(null == type.getId()){

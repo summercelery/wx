@@ -28,6 +28,10 @@ spring:
 # Mybatis配置
 mybatis:
     mapperLocations: classpath:mapper/*.xml
+#    自动映射数据库为驼峰
+    configuration:
+        mapUnderscoreToCamelCase: true
+
 
 http:
     #上传文件大小设置

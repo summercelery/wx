@@ -14,7 +14,7 @@
     <!--</update>-->
 
     <select id="findByTypeId" resultType="com.wxmp.wxmobile.domain.BusinessArticle">
-        SELECT * FROM  wxmobile_business_article WHERE type_id = #{id} ORDER BY create_time desc
+        SELECT id,name,title,short_content,create_time,url,type_id,pic_url,update_time FROM  wxmobile_business_article WHERE type_id = #{id} ORDER BY create_time desc
     </select>
 
 
