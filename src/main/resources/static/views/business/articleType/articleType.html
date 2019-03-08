@@ -25,11 +25,11 @@
         var tableObj = table.render({
             id: 'list_table',
             elem: '#list_table',
-            url: '/article/list',
+            url: '/articleType/list',
             align: "center",
             cols: [[ //表头
                 {type: 'checkbox'},
-                {type: 'numbers', title: '序号',width:50},
+                {type: 'id', title: '序号',width:50},
                 {field: 'name', title: '类型名称', width: 250, align: 'center'},
                 {field: 'url', title: '视图URL', width: 600, align: 'center'},
                 {field: 'updateTime', title: '修改日期',  width: 180, align: 'center'},

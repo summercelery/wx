@@ -13,4 +13,6 @@ public interface BusinessArticleTypeDao {
     BusinessArticleType createBusinessArticleType(BusinessArticleType type);
 
     void updateBusinessArticleType(BusinessArticleType type);
+
+    List<BusinessArticleType> list(BusinessArticleType type);
 }

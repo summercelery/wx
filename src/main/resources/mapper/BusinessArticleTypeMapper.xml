@@ -27,6 +27,10 @@
     <select id="getTypePics" resultType="java.lang.String">
         SELECT url FROM  wxcms_img_resource img LEFT JOIN  wxmobile_type_pic typePic ON  img.id = typePic.pic_id where typePic.type_id = #{id}
     </select>
+    <select id="list" resultType="com.wxmp.wxmobile.domain.BusinessArticleType">
+        SELECT * FROM  wxmobile_business_article_type ORDER BY create_time DESC
+
+    </select>
 
 
 </mapper>

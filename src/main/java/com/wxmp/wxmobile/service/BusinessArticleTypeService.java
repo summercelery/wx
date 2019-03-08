@@ -9,12 +9,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class BusinessArticleTypeService {
 
     @Autowired
     private BusinessArticleTypeDao businessArticleTypeDao;
+
+    public List<BusinessArticleType> list(BusinessArticleType type){
+     return businessArticleTypeDao.list(type);
+    }
 
     public BusinessArticleType findById(Long id){
         return businessArticleTypeDao.findById(id);
