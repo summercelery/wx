@@ -1,5 +1,6 @@
 package com.wxmp.wxmobile.ctrl;
 
+import com.wxmp.core.common.BaseCtrl;
 import com.wxmp.core.util.AjaxResult;
 import com.wxmp.wxmobile.domain.BusinessArticle;
 import com.wxmp.wxmobile.domain.BusinessArticleType;
@@ -17,21 +18,22 @@ import java.util.List;
 @RestController
 @Slf4j
 @RequestMapping("article")
-public class BusinessArticleCtrl {
-
-
-    @Autowired
-    private BusinessArticleTypeService businessArticleTypeService;
-
+public class BusinessArticleCtrl extends BaseCtrl {
 
     @Autowired
     private BusinessArticleService businessArticleService;
 
 
     @RequestMapping(value = "getList",method = RequestMethod.POST)
-    public AjaxResult list(Long typeId){
+    public AjaxResult listByTypeId(Long typeId){
         List<BusinessArticle> list = businessArticleService.getBusinessArticleByType(typeId);
         return AjaxResult.success(list);
+    }
+
+    @RequestMapping(value = "list")
+    public AjaxResult list(BusinessArticle article){
+        List<BusinessArticle> list = businessArticleService.list(article);
+        return getResult(article, list);
     }
 
     @RequestMapping(value ="getArticle")
@@ -46,5 +48,7 @@ public class BusinessArticleCtrl {
         businessArticleService.createBusinessArticle(article);
         return AjaxResult.success();
     }
+
+
 
 }

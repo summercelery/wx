@@ -8,6 +8,7 @@ public interface BusinessArticleDao {
 
 
     List<BusinessArticle> findByTypeId(Long id);
+    List<BusinessArticle> list(BusinessArticle article);
 
 
     BusinessArticle findById(Long id);

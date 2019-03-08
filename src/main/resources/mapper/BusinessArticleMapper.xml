@@ -21,6 +21,9 @@
         SELECT * FROM  wxmobile_business_article WHERE  id = #{id}
 
     </select>
+    <select id="list" resultType="com.wxmp.wxmobile.domain.BusinessArticle">
+        SELECT * FROM  wxmobile_business_article ORDER BY create_time DESC
+    </select>
 
 
 </mapper>
