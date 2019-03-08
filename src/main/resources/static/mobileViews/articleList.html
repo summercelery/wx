@@ -29,11 +29,8 @@
                 </div>
                 <div data-am-widget="list_news" class="myAppNews am-list-news am-list-news-default" >
                     <div class="am-list-news-bd">
-                        <ul class="am-list">
+                        <ul id = "articleList" class="am-list">
                             <!--缩略图在标题右边-->
-                            <li  id = "articleList" class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-right">
-                            </li>
-
                         </ul>
                     </div>
 
@@ -53,11 +50,18 @@
 <script src="assets/js/amazeui.ie8polyfill.min.js"></script>
 <![endif]-->
 <script>
+    function GetQueryString(name)
+    {
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if(r!=null)return  unescape(r[2]); return null;
+    }
+//    加载文章列表
     function list(result){
         $.each(result,function (i,object) {
-
-
-            $('#articleList').append('<div class=" am-u-sm-8 am-list-main">\n' +
+            $('#articleList').append('' +
+                '      <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-right">\n' +
+                '<div class=" am-u-sm-8 am-list-main">\n' +
                 '                                    <h3 class="am-list-item-hd"><a href="'+object.url+'" class="">'+object.title+'</a></h3>\n' +
                 '\n' +
                 '\n' +
@@ -66,15 +70,17 @@
                 '                                    <span class="am-list-date">'+object.createTime+'</span>\n' +
                 '                                </div>\n' +
                 '                                <div class="am-u-sm-4 am-list-thumb">\n' +
-                '                                    <a href="###" class="">\n' +
+                '                                    <a href="'+object.url+'" class="">\n' +
                 '                                        <img src="'+object.picUrl+'"/>\n' +
                 '                                    </a>\n' +
-                '                                </div>');
+                '                                </div>' +
+                '</li>');
 
             
         })
     }
 
+//    加载文章类型
     function typeResult(result) {
         $('#title').html(result.name);
         $.each(result.picUrl,function (i,object) {
@@ -86,21 +92,11 @@
     }
 
 
-
-
-
-
-
-
-
-
-
-
 //    $(function () {
         $.ajax({
             url: '/articleType/getType',
             type: 'post',
-            data:{typeId:1},
+            data:{typeId:GetQueryString("typeId")},
             success: function (result) {
                 if (result.success) {
                     typeResult(result.data);
@@ -114,7 +110,7 @@
 
         $.ajax({
             url: '/article/getList',
-            data:{typeId:1},
+            data:{typeId:GetQueryString("typeId")},
             type: 'post',
             success: function (result) {
                 if (result.success) {

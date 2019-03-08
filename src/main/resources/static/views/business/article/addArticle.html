@@ -99,7 +99,7 @@
             data.fromurl = formData.fromurl;
             data.opencomment=formData.open_comment?1:0;
             data.fanscancomment=formData.fans_can_comment;
-            data.description = layedit.getContent(layeditIndex);
+            data.content = layedit.getContent(layeditIndex);
             if (data.thumbMediaId == "") {
                 layer.msg("请上传封面图");
                 return false;
@@ -109,7 +109,7 @@
                 return false;
             }
             ajax({
-                url: '/msgnews/addSingleNews',
+                url: '/article/save',
                 data: data,
                 success: function (result) {
                     if (result.success) {

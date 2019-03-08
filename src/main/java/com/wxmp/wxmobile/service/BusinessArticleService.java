@@ -1,5 +1,6 @@
 package com.wxmp.wxmobile.service;
 
+import com.wxmp.wxapi.vo.Article;
 import com.wxmp.wxmobile.domain.BusinessArticle;
 import com.wxmp.wxmobile.domain.BusinessArticleType;
 import com.wxmp.wxmobile.mapper.BusinessArticleDao;
@@ -17,5 +18,13 @@ public class BusinessArticleService {
 
     public List<BusinessArticle> getBusinessArticleByType(Long typeId){
         return businessArticleDao.findByTypeId(typeId);
+    }
+
+    public BusinessArticle getArticleById(Long id ){
+        return businessArticleDao.findById(id);
+    }
+
+    public void createBusinessArticle(BusinessArticle article){
+        businessArticleDao.createBusinessArticle(article);
     }
 }

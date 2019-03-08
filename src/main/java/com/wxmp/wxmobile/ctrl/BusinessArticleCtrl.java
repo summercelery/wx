@@ -34,10 +34,16 @@ public class BusinessArticleCtrl {
         return AjaxResult.success(list);
     }
 
+    @RequestMapping(value ="getArticle")
+    public AjaxResult getArticle(Long articleId){
+        BusinessArticle article = businessArticleService.getArticleById(articleId);
+        return AjaxResult.success(article);
+    }
+
 
     @RequestMapping(value = "save")
-    public AjaxResult save(BusinessArticleType type){
-        businessArticleTypeService.saveBusinessArticleType(type);
+    public AjaxResult save(BusinessArticle article){
+        businessArticleService.createBusinessArticle(article);
         return AjaxResult.success();
     }
 

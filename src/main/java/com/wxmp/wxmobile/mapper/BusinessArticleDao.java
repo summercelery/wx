@@ -9,4 +9,10 @@ public interface BusinessArticleDao {
 
     List<BusinessArticle> findByTypeId(Long id);
 
+
+    BusinessArticle findById(Long id);
+
+    void createBusinessArticle(BusinessArticle article);
+    void updateBusinessArticle(BusinessArticle article);
+
 }
