@@ -7,6 +7,13 @@
 
             <div class="fsh-form-lg" id="add_form" style="overflow: hidden;">
                 <div class="layui-form-item">
+                    <label class="layui-form-label"><i>*</i>文章名</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="name" id="name" lay-verify="required" placeholder="请输入标题"
+                               class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
                     <label class="layui-form-label"><i>*</i>标题</label>
                     <div class="layui-input-block">
                         <input type="text" name="title" id="add_tltle" lay-verify="required" placeholder="请输入标题"
@@ -18,6 +25,19 @@
                     <div class="layui-input-block">
                         <input type="text" name="author" id="add_auth" lay-verify="required" placeholder="请输入作者"
                                class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><i>*</i>封面图</label>
+                    <div class="layui-input-block">
+                        <input type="hidden" name="picpath" id="add_picpath" value="">
+                        <input type="hidden" name="thumbMediaId" id="add_thumbMediaId" value="">
+                        <div class="layui-upload-drag" id="uploader">
+                            <i class="layui-icon"></i>
+                            <p>点击上传，或将文件拖拽到此处</p>
+                        </div>
+                        <input type="checkbox" name="showpic" title="封面图片显示在正文中" lay-skin="primary" id="add_showpic"
+                               value="1">
                     </div>
                 </div>
 
@@ -89,10 +109,11 @@
             var data = {};
             data.multType=1;//这里指定死
             data.title = formData.title;
+            data.name = formData.name;
             data.author = formData.author;
 
             data.thumbMediaId = formData.thumbMediaId;
-            data.picpath = formData.picpath;
+            data.picUrl = formData.picpath;
             data.showpic = formData.showpic?1:0;
 
             data.brief = formData.brief;
@@ -115,7 +136,7 @@
                     if (result.success) {
                         layer.msg("保存成功");
                         setTimeout(function () {
-                            jump("/material/document/document[type=single]");
+                            jump("/business/article/article");
                         }, 1000);
                     }
                 },
