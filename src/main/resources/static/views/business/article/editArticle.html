@@ -1,6 +1,6 @@
 <div class="fsh-rightPanel">
     <blockquote class="site-text layui-elem-quote">
-        <h2>新建文章</h2>
+        <h2>编辑文章</h2>
     </blockquote>
     <div class="layui-form" action="">
         <div class="layui-row">
@@ -23,7 +23,8 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label"><i>*</i>摘要</label>
                     <div class="layui-input-block">
-                        <input type="text" name="shortContent" id="shortContent" lay-verify="required" placeholder="请输入摘要"
+                        <input type="text" name="shortContent" id="shortContent" lay-verify="required"
+                               placeholder="请输入摘要"
                                class="layui-input">
                     </div>
                 </div>
@@ -31,7 +32,7 @@
                     <label class="layui-form-label"><i>*</i>文章类型</label>
                     <div class="layui-input-block">
                         <select name="type" id="type" lay-verify="required" placeholder="请选择类型"
-                               class="layui-select">
+                                class="layui-select">
                         </select>
                     </div>
                 </div>
@@ -60,7 +61,7 @@
                     <label class="layui-form-label"></label>
                     <div class="layui-input-block">
                         <button type="button" class="layui-btn" lay-submit lay-filter="addsingle_form">立即提交</button>
-<!--                         <button type="button" class="layui-btn" id="add_canl">取消</button> -->
+                        <!--                         <button type="button" class="layui-btn" id="add_canl">取消</button> -->
                     </div>
                 </div>
             </div>
@@ -68,17 +69,50 @@
     </div>
 </div>
 <script>
+
+    function GetQueryString(name) {
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.hash.split("?")[1].match(reg);
+        if(r!=null)return  unescape(r[2]); return null;
+    }
+
     function listSelect(result) {
-        $.each(result,function (i,object) {
-            $("#type").append("<option value="+object.id+">"+object.name+"</option>");
+
+        $.ajax({
+            url: "/article/getArticle",
+            type: 'post',
+            async: false,
+            data: {articleId: GetQueryString("id")},
+            success: function (ret) {
+                if (ret.success) {
+                    $.each(result, function (i, object) {
+                        if (ret.data.typeId == object.id) {
+                            $("#type").append("<option value=" + object.id + "selected = 'selected'>" + object.name + "</option>");
+                        } else {
+                            $("#type").append("<option value=" + object.id + ">" + object.name + "</option>");
+                        }
+                    });
+                    $("#name").val(ret.data.name);
+                    $("#add_tltle").val(ret.data.title);
+                    $("#content").val(ret.data.content);
+                    $("#shortContent").val(ret.data.shortContent);
+                    $("#uploader").html("<img src='" + ret.data.picUrl + "' style='width: 150px;height: 150px;'/><p>点击重新上传，或将文件拖拽到此处</p>");
+                    $("#add_picpath").val(ret.ret.picUrl);
+                    $(".wxmp-doclist .main img").attr("src", ret.data.picUrl);
+
+                }
+
+            }
         });
+
+
     }
 
     $.ajax({
         url: "/articleType/listAll",
         type: 'post',
         async: false,
-        data:{},
+        data: {},
         success: function (result) {
             if (result.success) {
                 listSelect(result.data);
@@ -86,6 +120,7 @@
 
         }
     });
+
 
     layui.use(['layedit', "upload", "form"], function () {
         var layedit = layui.layedit;
@@ -112,10 +147,10 @@
         var layeditIndex = layedit.build('content');
 
         //开启关闭留言
-        form.on('switch(comment)', function(data){
-            if(data.elem.checked){
+        form.on('switch(comment)', function (data) {
+            if (data.elem.checked) {
                 $("#add_comment_type").show();
-            }else{
+            } else {
                 $("#add_comment_type").hide();
             }
         });
@@ -128,28 +163,28 @@
         //取消
         $("#add_canl").click(function () {
 //         	location.href = "/views/index.html#/material/document/document";
-        	jump("/material/document/document[type=single]");
+            jump("/material/document/document[type=single]");
         });
         //提交
         form.on('submit(addsingle_form)', function (d) {
             var formData = d.field;
             var data = {};
-            data.multType=1;//这里指定死
+            data.multType = 1;//这里指定死
             data.title = formData.title;
             data.name = formData.name;
-            data.typeId=formData.type;
+            data.typeId = formData.type;
 
             data.thumbMediaId = formData.thumbMediaId;
             data.picUrl = formData.picpath;
-            data.showpic = formData.showpic?1:0;
+            data.showpic = formData.showpic ? 1 : 0;
             data.shortContent = formData.shortContent;
 
             data.brief = formData.brief;
             data.fromurl = formData.fromurl;
-            data.opencomment=formData.open_comment?1:0;
-            data.fanscancomment=formData.fans_can_comment;
+            data.opencomment = formData.open_comment ? 1 : 0;
+            data.fanscancomment = formData.fans_can_comment;
             data.content = layedit.getContent(layeditIndex);
-            if (data.thumbMediaId == "") {
+            if (data.thumbMediaId == "" && GetQueryString("id") == "") {
                 layer.msg("请上传封面图");
                 return false;
             }
@@ -175,11 +210,11 @@
         upload.render({
             elem: '#uploader',
             url: '/mediaFile/addMateria',
-            data:{type:'thumb'},//缩略图
+            data: {type: 'thumb'},//缩略图
             size: 64,
-            accept:"images",
+            accept: "images",
             exts: 'JPG|jpg',
-            before: function(){
+            before: function () {
                 showLoading();
             },
             done: function (result) {
@@ -188,21 +223,16 @@
                     $("#uploader").html("<img src='" + result.data.url + "' style='width: 150px;height: 150px;'/><p>点击重新上传，或将文件拖拽到此处</p>");
                     $("#add_picpath").val(result.data.url);
                     $("#add_thumbMediaId").val(result.data.imgMediaId);
-                    $(".wxmp-doclist .main img").attr("src",result.data.url);
+                    $(".wxmp-doclist .main img").attr("src", result.data.url);
                 } else {
                     layer.msg("上传接口异常");
                 }
             },
-            error: function(){
+            error: function () {
                 layer.closeAll('loading');
                 layer.msg(result.msg || "上传接口异常");
             }
         });
-
-
-
-
-
 
 
     });

@@ -17,6 +17,10 @@ public class BusinessArticleTypeService {
     @Autowired
     private BusinessArticleTypeDao businessArticleTypeDao;
 
+    public List<BusinessArticleType> listAll(){
+        return businessArticleTypeDao.list(null);
+    }
+
     public List<BusinessArticleType> list(BusinessArticleType type){
      return businessArticleTypeDao.list(type);
     }
@@ -25,13 +29,20 @@ public class BusinessArticleTypeService {
         return businessArticleTypeDao.findById(id);
     }
 
-    public void saveBusinessArticleType(BusinessArticleType type){
+    public void delete(BusinessArticleType type){
+        businessArticleTypeDao.deleteBusinessArticleType(type);
+    }
 
+    public void saveBusinessArticleType(BusinessArticleType type){
         if(null == type.getId()){
             type.setCreateTime(new Date());
             type.setUpdateTime(new Date());
-            type.setUrl(Constants.DOMAIN_NAMW+"/mobileViews/articleList.html?"+type.getId());
-            businessArticleTypeDao.createBusinessArticleType(type);
+            type.setUrl(Constants.DOMAIN_NAMW+"/mobileViews/articleList.html?typeId=");
+            BusinessArticleType resultType = businessArticleTypeDao.createBusinessArticleType(type);
+            for(String picId :type.getPicUrl()){
+                businessArticleTypeDao.insertPic(picId,resultType.getId());
+            }
+
         }else {
             type.setUpdateTime(new Date());
             businessArticleTypeDao.updateBusinessArticleType(type);

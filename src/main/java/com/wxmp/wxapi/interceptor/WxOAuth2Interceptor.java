@@ -84,8 +84,8 @@ public class WxOAuth2Interceptor extends HandlerInterceptorAdapter {
 		HttpUtil.redirectUrl(request, response, "/error/101.html");
 		return false;
 	}
-	
-	
+
+
 	public String[] getExcludes() {
 		return excludes;
 	}

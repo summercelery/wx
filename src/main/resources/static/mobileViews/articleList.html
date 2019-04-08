@@ -95,6 +95,7 @@
 //    $(function () {
         $.ajax({
             url: '/articleType/getType',
+            async: false,
             type: 'post',
             data:{typeId:GetQueryString("typeId")},
             success: function (result) {
@@ -112,6 +113,7 @@
             url: '/article/getList',
             data:{typeId:GetQueryString("typeId")},
             type: 'post',
+            async: false,
             success: function (result) {
                 if (result.success) {
                     list(result.data);

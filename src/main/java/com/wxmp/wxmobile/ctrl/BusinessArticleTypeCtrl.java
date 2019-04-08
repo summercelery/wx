@@ -34,11 +34,26 @@ public class BusinessArticleTypeCtrl  extends BaseCtrl {
     }
 
 
+    @RequestMapping("listAll")
+    public AjaxResult listAll(){
+        return AjaxResult.success(businessArticleTypeService.listAll()) ;
+    }
+
+
+    @RequestMapping("delArticleType")
+    public AjaxResult delArticle(BusinessArticleType type){
+        businessArticleTypeService.delete(type);
+        return AjaxResult.success();
+    }
+
     @RequestMapping("save")
     public AjaxResult save(BusinessArticleType type){
         businessArticleTypeService.saveBusinessArticleType(type);
         return AjaxResult.success();
     }
+
+
+
 
 
 

@@ -15,4 +15,9 @@ public interface BusinessArticleTypeDao {
     void updateBusinessArticleType(BusinessArticleType type);
 
     List<BusinessArticleType> list(BusinessArticleType type);
+
+    void deleteBusinessArticleType(BusinessArticleType type);
+
+    void insertPic(String typeId,Long picId);
+
 }

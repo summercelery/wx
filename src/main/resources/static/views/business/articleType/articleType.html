@@ -9,7 +9,7 @@
             </div>
 
             <div class="layui-inline right">
-                <button class="layui-btn btn-primary" id="createArticle">添加类型</button>
+                <button class="layui-btn btn-primary"  onclick="jump('/business/articleType/addArticleType')">添加类型</button>
             </div>
         </div>
         <table id="list_table" class="layui-hide" lay-filter="mainList"></table>
@@ -31,12 +31,14 @@
                 {type: 'checkbox'},
                 {field: 'id', title: 'ID',width:50},
                 {field: 'name', title: '类型名称', width: 250, align: 'center'},
-                {field: 'url', title: '视图URL', width: 600, align: 'center'},
+                {field: 'url', title: '视图URL', width: 600, align: 'center',templet: function(d){
+                    return d.url+d.id ;
+                }},
                 {field: 'updateTime', title: '修改日期',  width: 180, align: 'center'},
                 {field: 'createTime', title: '创建日期', width: 180, align: 'center'},
                 {
                     field: 'lock', title: '操作', width: 300, align: 'center', templet: function (d) {
-                    return '<a href="javascript:;" class="font-primary" lay-event="sync">编辑</a>' + '<a href="javascript:;" class="font-primary" lay-event="mass">删除</a>';
+                    return '<a href="javascript:;" class="font-primary" lay-event="sync">编辑</a>' + '<a  id = "article_wrap" href="javascript:;" class="font-primary" lay-event="mass">删除</a>';
                 }, unresize: true, align: 'center'
                 }
             ]],
@@ -51,7 +53,7 @@
             var id=$(this).parent().attr("data-id");
             showConfirm("确认删除？",function () {
                 $.ajax({
-                    url: '/article/delArticle',
+                    url: '/articleType/delArticle',
                     data: {id: id},
                     success: function (result) {
                         if (result.success) {

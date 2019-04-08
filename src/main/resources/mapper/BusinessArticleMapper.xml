@@ -3,13 +3,13 @@
 
 <mapper namespace="com.wxmp.wxmobile.mapper.BusinessArticleDao">
     <insert id="createBusinessArticle" flushCache="true" useGeneratedKeys="true" keyProperty="id">
-        INSERT  INTO wxmobile_business_article (name,create_time,update_time,url,content)
+        INSERT  INTO wxmobile_business_article (name,title,create_time,update_time,url,content,type_id,pic_url,short_content)
         VALUES
-        (#{name},#{createTime},#{updateTime},#{url},#{content})
+        (#{name},#{title},#{createTime},#{updateTime},#{url},#{content},#{typeId},#{picUrl},#{shortContent})
     </insert>
     <update id="updateBusinessArticle">
-        UPDATE wxmobile_business_article_type
-        SET name = #{name},update_time = #{updateTime}
+        UPDATE wxmobile_business_article
+        SET name = #{name},update_time = #{updateTime},title = #{title},type_id = #{typeId},short_content = #{shortContent},pic_url=#{picUrl}
         WHERE id = #{id}
     </update>
 
@@ -24,6 +24,9 @@
     <select id="list" resultType="com.wxmp.wxmobile.domain.BusinessArticle">
         SELECT * FROM  wxmobile_business_article ORDER BY create_time DESC
     </select>
+    <delete id="deleteBusinessArticle">
+        DELETE FROM  wxmobile_business_article where id = #{id}
+    </delete>
 
 
 </mapper>

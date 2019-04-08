@@ -14,9 +14,8 @@ public class BusinessArticleService {
     @Autowired
     private BusinessArticleDao businessArticleDao;
 
-    public List<BusinessArticle> getBusinessArticleByType(Long typeId) {
-        return businessArticleDao.findByTypeId(typeId);
-    }
+    public List<BusinessArticle> getBusinessArticleByType(Long typeId) { return businessArticleDao.findByTypeId(typeId); }
+
     public List<BusinessArticle> list(BusinessArticle article){
         return businessArticleDao.list(article);
     }
@@ -28,4 +27,11 @@ public class BusinessArticleService {
     public void createBusinessArticle(BusinessArticle article) {
         businessArticleDao.createBusinessArticle(article);
     }
+
+    public void updateBusinessArticle(BusinessArticle article){
+        businessArticleDao.updateBusinessArticle(article);
+    }
+
+    public void delete(BusinessArticle article){businessArticleDao.deleteBusinessArticle(article);}
+
 }

@@ -15,5 +15,6 @@ public interface BusinessArticleDao {
 
     void createBusinessArticle(BusinessArticle article);
     void updateBusinessArticle(BusinessArticle article);
+    void deleteBusinessArticle(BusinessArticle article);
 
 }

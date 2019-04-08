@@ -1,0 +1,113 @@
+<div class="fsh-rightPanel">
+    <blockquote class="site-text layui-elem-quote">
+        <h2>新建文章</h2>
+    </blockquote>
+    <div class="layui-form" action="">
+        <div class="layui-row">
+
+            <div class="fsh-form-lg" id="add_form" style="overflow: hidden;">
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><i>*</i>类型名</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="name" id="name" lay-verify="required" placeholder="请输入类型名"
+                               class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><i>*</i>封面图</label>
+                    <div class="layui-input-block">
+                        <input type="hidden" name="picpath" id="add_picpath1" value="">
+                        <input type="hidden" name="thumbMediaId" id="add_thumbMediaId1" value="">
+                        <div class="layui-upload-drag" id="uploader1">
+                            <i class="layui-icon"></i>
+                            <p>点击上传，或将文件拖拽到此处</p>
+                        </div>
+                    </div>
+                    <div class="layui-input-block">
+                        <input type="hidden" name="picpath" id="add_picpath2" value="">
+                        <input type="hidden" name="thumbMediaId" id="add_thumbMediaId2" value="">
+                        <div class="layui-upload-drag" id="uploader2">
+                            <i class="layui-icon"></i>
+                            <p>点击上传，或将文件拖拽到此处</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label"></label>
+                    <div class="layui-input-block">
+                        <button type="button" class="layui-btn" lay-submit lay-filter="addsingle_form">立即提交</button>
+                        <!--                         <button type="button" class="layui-btn" id="add_canl">取消</button> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+
+    layui.use(['layedit', "upload", "form"], function () {
+        var layedit = layui.layedit;
+        var $ = layui.$;
+        var upload = layui.upload;
+        var form = layui.form;
+        form.render();
+
+        //提交
+        form.on('submit(addsingle_form)', function (d) {
+            var formData = d.field;
+            var data = {};
+            data.multType=1;//这里指定死
+            data.name = formData.name;
+
+            data.picUrl = formData.thumbMediaId1;
+
+
+            ajax({
+                url: '/articleType/save',
+                data: data,
+                success: function (result) {
+                    if (result.success) {
+                        layer.msg("保存成功");
+                        setTimeout(function () {
+                            jump("/business/articleType/articleType");
+                        }, 1000);
+                    }
+                },
+            });
+            return false;
+        });
+        //上传
+        upload.render({
+            elem: '#uploader',
+            url: '/mediaFile/addMateria',
+            data:{type:'thumb'},//缩略图
+            size: 64,
+            accept:"images",
+            exts: 'JPG|jpg',
+            before: function(){
+                showLoading();
+            },
+            done: function (result) {
+                layer.closeAll('loading');
+                if (result.success) {
+                    $("#uploader").html("<img src='" + result.data.url + "' style='width: 150px;height: 150px;'/><p>点击重新上传，或将文件拖拽到此处</p>");
+                    $("#add_picpath").val(result.data.url);
+                    $("#add_thumbMediaId").val(result.data.imgMediaId);
+                    $(".wxmp-doclist .main img").attr("src",result.data.url);
+                } else {
+                    layer.msg("上传接口异常");
+                }
+            },
+            error: function(){
+                layer.closeAll('loading');
+                layer.msg(result.msg || "上传接口异常");
+            }
+        });
+
+    });
+
+
+</script>
