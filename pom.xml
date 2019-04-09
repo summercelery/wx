@@ -6,7 +6,7 @@
 	<groupId>com.hermit</groupId>
 	<artifactId>smartwx</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>smartwx-boot</name>
 	<description>smartwx for Spring Boot</description>

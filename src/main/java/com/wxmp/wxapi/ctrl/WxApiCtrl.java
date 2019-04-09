@@ -72,9 +72,9 @@ public class WxApiCtrl extends BaseCtrl {
 			String echostr = request.getParameter("echostr");// 随机字符串
 			
 			// 校验成功返回  echostr，成功成为开发者；否则返回error，接入失败
-			if (SignUtil.validSign(signature, token, timestamp, nonce)) {
+//			if (SignUtil.validSign(signature, token, timestamp, nonce)) {
 				return echostr;
-			}
+//			}
 		}
 		return "error";
 	}

@@ -110,7 +110,7 @@ public class MediaFilesCtrl extends BaseCtrl {
 
 		//读取配置文上传件的路径
 		if (PropertiesUtil.getString("res.upload.path") != null) {
-			filePath = PropertiesUtil.getString("res.upload.path").toString() + fileName;
+			filePath = PropertiesUtil.getString("res.upload.path").toString();
 		} else {
 			filePath = filePath + "/upload/" + fileName;
 		}
@@ -119,6 +119,11 @@ public class MediaFilesCtrl extends BaseCtrl {
 
 		if (!saveFile.exists()) {
 			saveFile.mkdirs();
+		}
+		filePath = filePath+ fileName;
+		saveFile = new File(filePath);
+		if (!saveFile.exists()) {
+			saveFile.createNewFile();
 		}
 		file.transferTo(saveFile);
 		//构造返回参数
