@@ -15,12 +15,8 @@ public class Constants {
 	public static final String SYSTEM_NAME = "SmartWx";
 	public static final String SYSTEM_VERSION = "2.1.0";
 	public static final String SYSTEM_UPDATE_TIME = "2018-07-06";
-	public static final String DOMAIN_NAMW = "www.ligoudan.com.cn";
+	public static final String DOMAIN_NAMW = "http://www.ligoudan.com.cn";
 
-	/**
-	 * Token加密密钥
-	 */
-	public static final String TOKEN_KEY = "_GUyFjkigkjgUKgkjg_h$hjh^JKGGF4542";
 
 	/********************************* 操作信息常量 ***********************************/
 	/**

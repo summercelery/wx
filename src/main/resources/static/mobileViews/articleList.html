@@ -59,10 +59,11 @@
 //    加载文章列表
     function list(result){
         $.each(result,function (i,object) {
+
             $('#articleList').append('' +
                 '      <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-right">\n' +
                 '<div class=" am-u-sm-8 am-list-main">\n' +
-                '                                    <h3 class="am-list-item-hd"><a href="'+object.url+'" class="">'+object.title+'</a></h3>\n' +
+                '                                    <h3 class="am-list-item-hd"><a href="'+object.url + object.id+'" class="">'+object.title+'</a></h3>\n' +
                 '\n' +
                 '\n' +
                 '                                    <div class="am-list-item-text">'+object.shortContent+' </div>\n' +

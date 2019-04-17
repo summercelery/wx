@@ -46,6 +46,29 @@
     </div>
 </div>
 <script>
+    function GetQueryString(name) {
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.hash.split("?")[1].match(reg);
+        if(r!=null)return  unescape(r[2]); return null;
+    }
+    $.ajax({
+        url: "/articleType/getArticleType",
+        type: 'post',
+        async: false,
+        data: {typeId: GetQueryString("id")},
+        success: function (ret) {
+            if (ret.success) {
+                $("#name").val(ret.data.name);
+                $("#uploader1").html("<img src='" + ret.data.picUrl + "' style='width: 150px;height: 150px;'/><p>点击重新上传，或将文件拖拽到此处</p>");
+                $("#add_picpath1").val(ret.ret.picUrl[0]);
+                $("#uploader2").html("<img src='" + ret.data.picUrl + "' style='width: 150px;height: 150px;'/><p>点击重新上传，或将文件拖拽到此处</p>");
+                $("#add_picpath2").val(ret.ret.picUrl[1]);
+                $(".wxmp-doclist .main img").attr("src", ret.data.picUrl);
+
+            }
+
+        }
+    });
 
 
     layui.use(['layedit', "upload", "form"], function () {
