@@ -13,32 +13,23 @@
                                class="layui-input">
                     </div>
                 </div>
-
                 <div class="layui-form-item">
-                    <label class="layui-form-label"><i>*</i>封面图</label>
+                    <label class="layui-form-label"><i>*</i>轮播图数量</label>
                     <div class="layui-input-block">
-                        <input type="hidden" name="picpath" id="add_picpath1" value="">
-                        <input type="hidden" name="thumbMediaId" id="add_thumbMediaId1" value="">
-                        <div class="layui-upload-drag" id="uploader1">
-                            <i class="layui-icon"></i>
-                            <p>点击上传，或将文件拖拽到此处</p>
-                        </div>
+                        <select lay-filter="picNum"  name="picNum" id="picNum" lay-verify="required" placeholder="请选择图片数量"
+                                class="layui-select">
+                        </select>
                     </div>
-                    <div class="layui-input-block">
-                        <input type="hidden" name="picpath" id="add_picpath2" value="">
-                        <input type="hidden" name="thumbMediaId" id="add_thumbMediaId2" value="">
-                        <div class="layui-upload-drag" id="uploader2">
-                            <i class="layui-icon"></i>
-                            <p>点击上传，或将文件拖拽到此处</p>
-                        </div>
-                    </div>
+                </div>
+
+                <div id= "uploadPic" class="layui-form-item">
+                    <label class="layui-form-label"><i>*</i>轮播图</label>
                 </div>
 
                 <div class="layui-form-item">
                     <label class="layui-form-label"></label>
                     <div class="layui-input-block">
                         <button type="button" class="layui-btn" lay-submit lay-filter="addsingle_form">立即提交</button>
-                        <!--                         <button type="button" class="layui-btn" id="add_canl">取消</button> -->
                     </div>
                 </div>
             </div>
@@ -46,29 +37,28 @@
     </div>
 </div>
 <script>
-    function GetQueryString(name) {
-        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
-        var r = window.location.hash.split("?")[1].match(reg);
-        if(r!=null)return  unescape(r[2]); return null;
-    }
-    $.ajax({
-        url: "/articleType/getArticleType",
-        type: 'post',
-        async: false,
-        data: {typeId: GetQueryString("id")},
-        success: function (ret) {
-            if (ret.success) {
-                $("#name").val(ret.data.name);
-                $("#uploader1").html("<img src='" + ret.data.picUrl + "' style='width: 150px;height: 150px;'/><p>点击重新上传，或将文件拖拽到此处</p>");
-                $("#add_picpath1").val(ret.ret.picUrl[0]);
-                $("#uploader2").html("<img src='" + ret.data.picUrl + "' style='width: 150px;height: 150px;'/><p>点击重新上传，或将文件拖拽到此处</p>");
-                $("#add_picpath2").val(ret.ret.picUrl[1]);
-                $(".wxmp-doclist .main img").attr("src", ret.data.picUrl);
-
-            }
-
+    addOption();
+    function addOption(){
+        for( var i =1;i<=4;i++){
+            $("#picNum").append("<option value=" + i + " >" + i + "</option>");
         }
-    });
+    }
+
+    function addPic(a){
+        for(var i=1;i<=a;i++){
+            $("#uploadPic").append("<div class=\"layui-input-block addPic\">\n" +
+                "                        <input type=\"hidden\" name=\"picpath\" id=\"add_picpath"+i+"  \" value=\"\">\n" +
+                "                        <input type=\"hidden\" name=\"thumbMediaId\" id=\"add_thumbMediaId"+i+"\" value=\"\">\n" +
+                "                        <div class=\"layui-upload-drag\" id=\"uploader"+i+"\">\n" +
+                "                            <i class=\"layui-icon\"></i>\n" +
+                "                            <p>点击上传，或将文件拖拽到此处</p>\n" +
+                "                        </div>\n" +
+                "                    </div>");
+        }
+
+    }
+
+
 
 
     layui.use(['layedit', "upload", "form"], function () {
@@ -77,6 +67,129 @@
         var upload = layui.upload;
         var form = layui.form;
         form.render();
+
+        $(".addPic").remove();
+        addPic(1);
+        form.on('select(picNum)', function(data){
+            $(".addPic").remove();
+            addPic(data.value);
+            //上传
+            upload.render({
+                elem: '#uploader1',
+                url: '/mediaFile/addMateria',
+                data:{type:'thumb'},//缩略图
+                size: 64,
+                accept:"images",
+                exts: 'JPG|jpg',
+                before: function(){
+                    showLoading();
+                },
+                done: function (result) {
+                    layer.closeAll('loading');
+                    if (result.success) {
+                        $("#uploader1").html("<img src='" + result.data.url + "' style='width: 150px;height: 150px;'/><p>点击重新上传，或将文件拖拽到此处</p>");
+                        $("#add_picpath1").val(result.data.url);
+                        $("#add_thumbMediaId1").val(result.data.imgMediaId);
+                        $(".wxmp-doclist .main img").attr("src",result.data.url);
+                    } else {
+                        layer.msg("上传接口异常");
+                    }
+                },
+                error: function(){
+                    layer.closeAll('loading');
+                    layer.msg(result.msg || "上传接口异常");
+                }
+            });
+
+            //上传
+            upload.render({
+                elem: '#uploader2',
+                url: '/mediaFile/addMateria',
+                data:{type:'thumb'},//缩略图
+                size: 64,
+                accept:"images",
+                exts: 'JPG|jpg',
+                before: function(){
+                    showLoading();
+                },
+                done: function (result) {
+                    layer.closeAll('loading');
+                    if (result.success) {
+                        $("#uploader2").html("<img src='" + result.data.url + "' style='width: 150px;height: 150px;'/><p>点击重新上传，或将文件拖拽到此处</p>");
+                        $("#add_picpath2").val(result.data.url);
+                        $("#add_thumbMediaId2").val(result.data.imgMediaId);
+                        $(".wxmp-doclist .main img").attr("src",result.data.url);
+                    } else {
+                        layer.msg("上传接口异常");
+                    }
+                },
+                error: function(){
+                    layer.closeAll('loading');
+                    layer.msg(result.msg || "上传接口异常");
+                }
+            });
+
+            //上传
+            upload.render({
+                elem: '#uploader3',
+                url: '/mediaFile/addMateria',
+                data:{type:'thumb'},//缩略图
+                size: 64,
+                accept:"images",
+                exts: 'JPG|jpg',
+                before: function(){
+                    showLoading();
+                },
+                done: function (result) {
+                    layer.closeAll('loading');
+                    if (result.success) {
+                        $("#uploader3").html("<img src='" + result.data.url + "' style='width: 150px;height: 150px;'/><p>点击重新上传，或将文件拖拽到此处</p>");
+                        $("#add_picpath3").val(result.data.url);
+                        $("#add_thumbMediaId3").val(result.data.imgMediaId);
+                        $(".wxmp-doclist .main img").attr("src",result.data.url);
+                    } else {
+                        layer.msg("上传接口异常");
+                    }
+                },
+                error: function(){
+                    layer.closeAll('loading');
+                    layer.msg(result.msg || "上传接口异常");
+                }
+            });
+
+            //上传
+            upload.render({
+                elem: '#uploader4',
+                url: '/mediaFile/addMateria',
+                data:{type:'thumb'},//缩略图
+                size: 64,
+                accept:"images",
+                exts: 'JPG|jpg',
+                before: function(){
+                    showLoading();
+                },
+                done: function (result) {
+                    layer.closeAll('loading');
+                    if (result.success) {
+                        $("#uploader4").html("<img src='" + result.data.url + "' style='width: 150px;height: 150px;'/><p>点击重新上传，或将文件拖拽到此处</p>");
+                        $("#add_picpath4").val(result.data.url);
+                        $("#add_thumbMediaId4").val(result.data.imgMediaId);
+                        $(".wxmp-doclist .main img").attr("src",result.data.url);
+                    } else {
+                        layer.msg("上传接口异常");
+                    }
+                },
+                error: function(){
+                    layer.closeAll('loading');
+                    layer.msg(result.msg || "上传接口异常");
+                }
+            });
+
+        });
+
+
+
+
 
         //提交
         form.on('submit(addsingle_form)', function (d) {
@@ -87,6 +200,8 @@
 
             data.picUrl[0] = formData.thumbMediaId1;
             data.picUrl[1] = formData.thumbMediaId2;
+            data.picUrl[2] = formData.thumbMediaId3;
+            data.picUrl[3] = formData.thumbMediaId4;
 
             ajax({
                 url: '/articleType/save',
@@ -102,6 +217,9 @@
             });
             return false;
         });
+
+
+
         //上传
         upload.render({
             elem: '#uploader1',
@@ -157,6 +275,66 @@
                 layer.msg(result.msg || "上传接口异常");
             }
         });
+
+        //上传
+        upload.render({
+            elem: '#uploader3',
+            url: '/mediaFile/addMateria',
+            data:{type:'thumb'},//缩略图
+            size: 64,
+            accept:"images",
+            exts: 'JPG|jpg',
+            before: function(){
+                showLoading();
+            },
+            done: function (result) {
+                layer.closeAll('loading');
+                if (result.success) {
+                    $("#uploader3").html("<img src='" + result.data.url + "' style='width: 150px;height: 150px;'/><p>点击重新上传，或将文件拖拽到此处</p>");
+                    $("#add_picpath3").val(result.data.url);
+                    $("#add_thumbMediaId3").val(result.data.imgMediaId);
+                    $(".wxmp-doclist .main img").attr("src",result.data.url);
+                } else {
+                    layer.msg("上传接口异常");
+                }
+            },
+            error: function(){
+                layer.closeAll('loading');
+                layer.msg(result.msg || "上传接口异常");
+            }
+        });
+
+        //上传
+        upload.render({
+            elem: '#uploader4',
+            url: '/mediaFile/addMateria',
+            data:{type:'thumb'},//缩略图
+            size: 64,
+            accept:"images",
+            exts: 'JPG|jpg',
+            before: function(){
+                showLoading();
+            },
+            done: function (result) {
+                layer.closeAll('loading');
+                if (result.success) {
+                    $("#uploader4").html("<img src='" + result.data.url + "' style='width: 150px;height: 150px;'/><p>点击重新上传，或将文件拖拽到此处</p>");
+                    $("#add_picpath4").val(result.data.url);
+                    $("#add_thumbMediaId4").val(result.data.imgMediaId);
+                    $(".wxmp-doclist .main img").attr("src",result.data.url);
+                } else {
+                    layer.msg("上传接口异常");
+                }
+            },
+            error: function(){
+                layer.closeAll('loading');
+                layer.msg(result.msg || "上传接口异常");
+            }
+        });
+
+
+
+
 
     });
 

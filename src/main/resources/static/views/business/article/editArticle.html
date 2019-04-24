@@ -87,7 +87,7 @@
                 if (ret.success) {
                     $.each(result, function (i, object) {
                         if (ret.data.typeId == object.id) {
-                            $("#type").append("<option value=" + object.id + "selected = 'selected'>" + object.name + "</option>");
+                            $("#type").append("<option value=" + object.id + " selected = 'selected'>" + object.name + "</option>");
                         } else {
                             $("#type").append("<option value=" + object.id + ">" + object.name + "</option>");
                         }

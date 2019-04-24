@@ -38,13 +38,37 @@
                 {field: 'createTime', title: '创建日期', width: 180, align: 'center'},
                 {
                     field: 'lock', title: '操作', width: 300, align: 'center', templet: function (d) {
-                    return '<a href="javascript:;" class="font-primary" lay-event="sync">编辑</a>' + '<a  id = "article_wrap" href="javascript:;" class="font-primary" lay-event="mass">删除</a>';
+                    return '<a href="javascript:;" class="font-primary" lay-event="edit">编辑</a>' + '<a  id = "article_wrap" href="javascript:;" class="font-primary" lay-event="mass">删除</a>';
                 }, unresize: true, align: 'center'
                 }
             ]],
         });
 
 
+        //表格内部操作按钮监听
+        table.on('tool(mainList)', function (obj) {
+            var data = obj.data;
+            var layEvent = obj.event;
+
+            if (layEvent === 'edit') {
+                window.location.href = "http://www.ligoudan.com.cn/views/index.html#/business/articleType/editArticleType.html?id="+data.id;
+            } else if (layEvent === 'del') {
+                showConfirm("确认删除？", function () {
+                    $.ajax({
+                        url: '/article/delArticle',
+                        data: {id: data.id},
+                        success: function (result) {
+                            if (result.success) {
+                                layer.msg("操作成功");
+                                reloadTable(tableObj);
+                            } else {
+                                layer.msg("操作异常");
+                            }
+                        }
+                    })
+                });
+            }
+        });
 
 
 

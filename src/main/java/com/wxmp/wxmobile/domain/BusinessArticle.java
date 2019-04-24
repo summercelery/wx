@@ -24,5 +24,6 @@ public class BusinessArticle extends Page implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss",iso= DateTimeFormat.ISO.DATE_TIME)
     private Date updateTime;
     private Long typeId;
+    private String typeName;
 
 }
