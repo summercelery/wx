@@ -37,10 +37,43 @@
     </div>
 </div>
 <script>
-    addOption();
-    function addOption(){
+    function GetQueryString(name) {
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.hash.split("?")[1].match(reg);
+        if(r!=null)return  unescape(r[2]); return null;
+    }
+
+
+    $.ajax({
+        url: "/articleType/getType",
+        type: 'post',
+        async: false,
+        data: { typeId : GetQueryString("id") },
+        success: function (result) {
+            if (result.success) {
+                addOption(result.data.picUrl.size());
+                $("#name").val(ret.data.name);
+                for(var i=0;i<result.data.picUrl.size();i++){
+                    $("#uploader").html("<img src='" +result.data.picUrl[i] + "' style='width: 150px;height: 150px;'/><p>点击重新上传，或将文件拖拽到此处</p>");
+                    $("#add_picpath").val(result.data.picUrl[i]);
+                    $(".wxmp-doclist .main img").attr("src", result.data.picUrl[i]);
+                }
+
+            }
+
+        }
+    });
+
+
+
+    function addOption(a){
         for( var i =1;i<=4;i++){
-            $("#picNum").append("<option value=" + i + " >" + i + "</option>");
+            if(a==i){
+                $("#picNum").append("<option value=" + i + " selected = 'selected'>" + i + "</option>");
+
+            }else{
+                $("#picNum").append("<option value=" + i + " >" + i + "</option>");
+            }
         }
     }
 

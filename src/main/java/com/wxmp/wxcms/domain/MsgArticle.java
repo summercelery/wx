@@ -5,12 +5,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 
-/**
- *
- * @author hermit
- * @version 2.0
- * @date 2018-04-17 10:54:58
- */
+
 @Data
 public class MsgArticle  extends Page implements Serializable {
 

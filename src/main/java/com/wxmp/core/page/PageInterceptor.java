@@ -19,6 +19,7 @@ import org.apache.ibatis.scripting.defaults.DefaultParameterHandler;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.defaults.DefaultSqlSession;
 import org.apache.ibatis.session.defaults.DefaultSqlSession.StrictMap;
+import org.springframework.stereotype.Component;
 
 import javax.xml.bind.PropertyException;
 import java.sql.Connection;
@@ -38,7 +39,8 @@ import java.util.regex.Pattern;
  *
  */
 @Slf4j
-@Intercepts({@Signature(type = StatementHandler.class, method = "prepare", args = {Connection.class})})
+@Component
+@Intercepts({@Signature(type = StatementHandler.class, method = "prepare", args = {Connection.class,Integer.class})})
 public class PageInterceptor implements Interceptor {
     
     private static final ObjectFactory DEFAULT_OBJECT_FACTORY = new DefaultObjectFactory();
@@ -47,9 +49,9 @@ public class PageInterceptor implements Interceptor {
 
     private static final ReflectorFactory DEFAULT_REFLECTORFACTORY= new DefaultReflectorFactory();
 
-    private static String dialect = ""; // 数据库类型(默认为mysql)
+    private static String dialect = "mysql"; // 数据库类型(默认为mysql)
     
-    private static String pageSqlId = ""; // 需要拦截的ID(正则匹配)
+    private static String pageSqlId = ".*Page"; // 需要拦截的ID(正则匹配)
     
     @Override
     public Object intercept(Invocation invocation)

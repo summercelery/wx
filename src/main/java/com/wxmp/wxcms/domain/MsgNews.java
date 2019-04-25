@@ -1,16 +1,12 @@
 package com.wxmp.wxcms.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import java.util.List;
 
-/**
- *
- * @author hermit
- * @version 2.0
- * @date 2018-04-17 10:54:58
- */
 @Data
+@JsonIgnoreProperties(value = "handler")
 public class MsgNews extends MsgBase {
 
 	private Integer multType;//'1单图文2多图文类',
