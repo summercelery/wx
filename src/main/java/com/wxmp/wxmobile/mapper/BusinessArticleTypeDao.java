@@ -1,6 +1,7 @@
 package com.wxmp.wxmobile.mapper;
 
 import com.wxmp.wxmobile.domain.BusinessArticleType;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ public interface BusinessArticleTypeDao {
 
     List<String> getTypePics(Long typeId);
 
-    BusinessArticleType createBusinessArticleType(BusinessArticleType type);
+    Long createBusinessArticleType(BusinessArticleType type);
 
     void updateBusinessArticleType(BusinessArticleType type);
 
@@ -18,6 +19,6 @@ public interface BusinessArticleTypeDao {
 
     void deleteBusinessArticleType(BusinessArticleType type);
 
-    void insertPic(String typeId,Long picId);
+    void insertPic( @Param("picId")String picId,@Param("typeId")Long typeId);
 
 }

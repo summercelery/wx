@@ -49,7 +49,7 @@ public class WxCmsCtrl extends BaseCtrl {
 	@RequestMapping(value = "/urltoken")
 	@ResponseBody
 	public AjaxResult urltoken() {
-		List<Account> accounts = accountDao.listForPage(null);
+		List<Account> accounts = accountDao.listAccount(null);
 		Account account = new Account();
 		if (!CollectionUtils.isEmpty(accounts)) {
 			for (Account acc : accounts) {

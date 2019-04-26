@@ -23,7 +23,7 @@ public class AccountService  {
     }
     
     public List<Account> listForPage(Account searchEntity) {
-        return entityDao.listForPage(searchEntity);
+        return entityDao.listAccount(searchEntity);
     }
     
     public void add(Account entity) {

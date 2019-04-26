@@ -19,7 +19,7 @@ public interface AccountDao {
 	
 	public Account getSingleAccount();
 
-	public List<Account> listForPage(Account searchEntity);
+	public List<Account> listAccount(Account searchEntity);
 
 	public void add(Account entity);
 

@@ -48,7 +48,7 @@
         for(var i=1;i<=a;i++){
             $("#uploadPic").append("<div class=\"layui-input-block addPic\">\n" +
                 "                        <input type=\"hidden\" name=\"picpath\" id=\"add_picpath"+i+"  \" value=\"\">\n" +
-                "                        <input type=\"hidden\" name=\"thumbMediaId\" id=\"add_thumbMediaId"+i+"\" value=\"\">\n" +
+                "                        <input type=\"hidden\" name=\"thumbMediaId"+i+"\" id=\"add_thumbMediaId"+i+"\" value=\"\">\n" +
                 "                        <div class=\"layui-upload-drag\" id=\"uploader"+i+"\">\n" +
                 "                            <i class=\"layui-icon\"></i>\n" +
                 "                            <p>点击上传，或将文件拖拽到此处</p>\n" +
@@ -195,18 +195,18 @@
         form.on('submit(addsingle_form)', function (d) {
             var formData = d.field;
             var data = {};
-            data.multType=1;//这里指定死
             data.name = formData.name;
-            alert(data);
-
-            data.picUrl[0] = formData.thumbMediaId1;
-            data.picUrl[1] = formData.thumbMediaId2;
-            data.picUrl[2] = formData.thumbMediaId3;
-            data.picUrl[3] = formData.thumbMediaId4;
+             var urls = new Array();
+             urls[0]=formData.thumbMediaId1;
+             urls[1]=formData.thumbMediaId2;
+             urls[2]=formData.thumbMediaId3;
+             urls[3]=formData.thumbMediaId4;
+            data.picUrl =urls;
 
             ajax({
                 url: '/articleType/save',
                 data: data,
+                traditional: true,
                 success: function (result) {
                     if (result.success) {
                         layer.msg("保存成功");

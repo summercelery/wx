@@ -38,7 +38,8 @@ public class BusinessArticleTypeService {
             type.setCreateTime(new Date());
             type.setUpdateTime(new Date());
             type.setUrl(Constants.DOMAIN_NAMW+"/mobileViews/articleList.html?typeId=");
-            BusinessArticleType resultType = businessArticleTypeDao.createBusinessArticleType(type);
+            Long id= businessArticleTypeDao.createBusinessArticleType(type);
+            BusinessArticleType resultType = businessArticleTypeDao.findById(id);
             for(String picId :type.getPicUrl()){
                 businessArticleTypeDao.insertPic(picId,resultType.getId());
             }

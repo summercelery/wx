@@ -5,6 +5,7 @@ import com.wxmp.core.common.BaseCtrl;
 import com.wxmp.core.exception.WxErrorException;
 import com.wxmp.core.util.AjaxResult;
 import com.wxmp.core.util.PropertiesUtil;
+import com.wxmp.core.util.UUIDUtil;
 import com.wxmp.wxapi.process.MpAccount;
 import com.wxmp.wxapi.process.WxApi;
 import com.wxmp.wxapi.process.WxApiClient;

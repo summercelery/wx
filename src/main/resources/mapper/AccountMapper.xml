@@ -3,7 +3,7 @@
 <mapper namespace="com.wxmp.wxcms.mapper.AccountDao">
 
 
-	<select id="listForPage" parameterType="com.wxmp.wxcms.domain.Account" resultType="com.wxmp.wxcms.domain.Account">
+	<select id="listAccount" parameterType="com.wxmp.wxcms.domain.Account" resultType="com.wxmp.wxcms.domain.Account">
 		SELECT * FROM wxcms_account ORDER BY ID DESC
 	</select>
 

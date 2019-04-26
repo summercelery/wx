@@ -10,7 +10,7 @@
 
 
 
-    <insert id="createBusinessArticleType">
+    <insert id="createBusinessArticleType" flushCache="true" useGeneratedKeys="true" keyProperty="id" >
         INSERT  INTO wxmobile_business_article_type (id,name,create_time,update_time,url)
         VALUES
         (#{id},#{name},#{createTime},#{updateTime},#{url})
@@ -25,7 +25,7 @@
         SELECT * FROM  wxmobile_business_article_type WHERE id = #{id}
     </select>
     <select id="getTypePics" resultType="java.lang.String">
-        SELECT url FROM  wxcms_img_resource img LEFT JOIN  wxmobile_type_pic typePic ON  img.id = typePic.pic_id where typePic.type_id = #{id}
+        SELECT url FROM  wxcms_img_resource img LEFT JOIN  wxmobile_type_pic typePic ON  img.media_id = typePic.pic_id where typePic.type_id = #{id}
     </select>
     <select id="list" resultType="com.wxmp.wxmobile.domain.BusinessArticleType">
         SELECT * FROM  wxmobile_business_article_type ORDER BY create_time DESC
@@ -36,10 +36,9 @@
         DELETE FROM  wxmobile_business_article_type where id = #{id}
     </delete>
 
-    <insert id="insertPic">
+    <insert id="insertPic" flushCache="true" useGeneratedKeys="true" keyProperty="id">
         INSERT  INTO wxmobile_type_pic (type_id,pic_id)
-        VALUES
-        (#{typeId},#{picId})
+        VALUES (#{typeId},#{picId})
     </insert>
 
 

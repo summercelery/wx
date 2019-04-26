@@ -37,6 +37,7 @@
     </div>
 </div>
 <script>
+
     function GetQueryString(name) {
         var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
         var r = window.location.hash.split("?")[1].match(reg);
@@ -51,11 +52,12 @@
         data: { typeId : GetQueryString("id") },
         success: function (result) {
             if (result.success) {
-                addOption(result.data.picUrl.size());
-                $("#name").val(ret.data.name);
-                for(var i=0;i<result.data.picUrl.size();i++){
-                    $("#uploader").html("<img src='" +result.data.picUrl[i] + "' style='width: 150px;height: 150px;'/><p>点击重新上传，或将文件拖拽到此处</p>");
-                    $("#add_picpath").val(result.data.picUrl[i]);
+                addOption(result.data.picUrl.length);
+                addPic(result.data.picUrl.length);
+                $("#name").val(result.data.name);
+                for(var i=0;i<result.data.picUrl.length;i++){
+                    $("#uploader"+(i+1)).html("<img src='" +result.data.picUrl[i] + "' style='width: 150px;height: 150px;'/><p>点击重新上传，或将文件拖拽到此处</p>");
+                    $("#add_picpath"+(i+1)).val(result.data.picUrl[i]);
                     $(".wxmp-doclist .main img").attr("src", result.data.picUrl[i]);
                 }
 
@@ -63,7 +65,6 @@
 
         }
     });
-
 
 
     function addOption(a){
@@ -81,7 +82,7 @@
         for(var i=1;i<=a;i++){
             $("#uploadPic").append("<div class=\"layui-input-block addPic\">\n" +
                 "                        <input type=\"hidden\" name=\"picpath\" id=\"add_picpath"+i+"  \" value=\"\">\n" +
-                "                        <input type=\"hidden\" name=\"thumbMediaId\" id=\"add_thumbMediaId"+i+"\" value=\"\">\n" +
+                "                        <input type=\"hidden\" name=\"thumbMediaId"+i+"\" id=\"add_thumbMediaId"+i+"\" value=\"\">\n" +
                 "                        <div class=\"layui-upload-drag\" id=\"uploader"+i+"\">\n" +
                 "                            <i class=\"layui-icon\"></i>\n" +
                 "                            <p>点击上传，或将文件拖拽到此处</p>\n" +
@@ -101,8 +102,6 @@
         var form = layui.form;
         form.render();
 
-        $(".addPic").remove();
-        addPic(1);
         form.on('select(picNum)', function(data){
             $(".addPic").remove();
             addPic(data.value);
@@ -228,17 +227,19 @@
         form.on('submit(addsingle_form)', function (d) {
             var formData = d.field;
             var data = {};
-            data.multType=1;//这里指定死
+            data.id= GetQueryString("id");
             data.name = formData.name;
-
-            data.picUrl[0] = formData.thumbMediaId1;
-            data.picUrl[1] = formData.thumbMediaId2;
-            data.picUrl[2] = formData.thumbMediaId3;
-            data.picUrl[3] = formData.thumbMediaId4;
+            var urls = new Array();
+            urls[0]=formData.thumbMediaId1;
+            urls[1]=formData.thumbMediaId2;
+            urls[2]=formData.thumbMediaId3;
+            urls[3]=formData.thumbMediaId4;
+            data.picUrl =urls;
 
             ajax({
                 url: '/articleType/save',
                 data: data,
+                traditional: true,
                 success: function (result) {
                     if (result.success) {
                         layer.msg("保存成功");
