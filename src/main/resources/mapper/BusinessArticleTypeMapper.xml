@@ -35,6 +35,9 @@
     <delete id="deleteBusinessArticleType">
         DELETE FROM  wxmobile_business_article_type where id = #{id}
     </delete>
+    <delete id="deletePic">
+        DELETE FROM  wxmobile_type_pic WHERE  type_id= #{typeId}
+    </delete>
 
     <insert id="insertPic" flushCache="true" useGeneratedKeys="true" keyProperty="id">
         INSERT  INTO wxmobile_type_pic (type_id,pic_id)

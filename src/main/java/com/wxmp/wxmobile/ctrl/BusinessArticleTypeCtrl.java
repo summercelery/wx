@@ -52,9 +52,4 @@ public class BusinessArticleTypeCtrl  extends BaseCtrl {
         return AjaxResult.success();
     }
 
-
-
-
-
-
 }

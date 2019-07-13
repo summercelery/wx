@@ -46,6 +46,10 @@ public class BusinessArticleTypeService {
 
         }else {
             type.setUpdateTime(new Date());
+            businessArticleTypeDao.deletePic(type.getId());
+            for(String picId :type.getPicUrl()){
+                businessArticleTypeDao.insertPic(picId,type.getId());
+            }
             businessArticleTypeDao.updateBusinessArticleType(type);
         }
     }

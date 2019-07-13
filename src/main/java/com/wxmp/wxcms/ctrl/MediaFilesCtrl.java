@@ -184,6 +184,7 @@ public class MediaFilesCtrl extends BaseCtrl {
     	String accessToken = WxApiClient.getAccessToken(mpAccount);
     	JSONObject result = WxApi.addMateria(accessToken, type, filePath,null );
     	String mediaId = result.getString("media_id");
+//		String mediaId = UUIDUtil.getUUID();
     	//图片或者图文的缩略图
     	if(type.equals("image")||type.equals("thumb")){
     		//图片url

@@ -21,4 +21,6 @@ public interface BusinessArticleTypeDao {
 
     void insertPic( @Param("picId")String picId,@Param("typeId")Long typeId);
 
+    void deletePic(Long typeId);
+
 }
